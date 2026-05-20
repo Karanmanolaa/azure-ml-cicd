@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+
+  WORKSPACE_NAME: karan-ml-workspace
+
+  RESOURCE_GROUP: ml-project-rg
+
 jobs:
   test-login:
     runs-on: ubuntu-latest
@@ -20,3 +26,6 @@ jobs:
 
       - name: Verify Azure Login
         run: az account show
+
+      - name : print workspace name 
+        run : echo $  WORKSPACE_NAME
