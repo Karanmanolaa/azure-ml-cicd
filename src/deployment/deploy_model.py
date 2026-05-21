@@ -18,7 +18,7 @@ latest_model = ml_client.models.get(
 
 # Create deployment
 deployment = ManagedOnlineDeployment(
-    name="blue-deployment",
+    name="green-deployment",
 
     endpoint_name="iris-ep-v10",
 
@@ -34,6 +34,7 @@ print("Starting deployment update...")
 ml_client.online_deployments.begin_create_or_update(
     deployment
 ).result()
+
 
 print("Deployment completed successfully")
 print("Latest model fetched successfully")
