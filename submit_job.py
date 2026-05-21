@@ -11,11 +11,25 @@ ml_client = MLClient(
 )
 
 # Create command job
-job = command(
+job = job = command(
+
     code="./src",
-    command="python train.py",
-    environment="AzureML-sklearn-1.5:19",
+
+    command= """
+    python validate_data.py &&
+    python train.py
+    """,
+
+    environment={
+
+        "conda_file": "./environments/train-env.yml",
+
+        "image": "mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04"
+
+    },
+
     compute="cpu-cluster"
+
 )
 
 # Submit job
