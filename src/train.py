@@ -43,5 +43,16 @@ mlflow.log_metric("accuracy", accuracy)
 # Print result
 print(f"Accuracy: {accuracy}")
 
+#minimum accuracy threshold 
+
+# Minimum accuracy threshold
+minimum_accuracy = 0.80
+
+# Fail job if accuracy too low
+if accuracy < minimum_accuracy:
+    raise ValueError(
+        f"Model accuracy below threshold: {accuracy}"
+    )
+
 # End MLflow run
 mlflow.end_run()
