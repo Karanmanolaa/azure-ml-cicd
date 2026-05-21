@@ -14,7 +14,16 @@ ml_client = MLClient(
 model = Model(
     path="model.joblib",
     name="iris-classification-model",
-    type="custom_model"
+    type="custom_model",
+
+    description = "Iris classification model trained via github",
+
+    tags = {
+        "framework" : "scikit-learn",
+        "dataset" : "iris-dataset",
+        "training type" : "automated",
+        "pipeline" : "github-actions"
+    }
 )
 
 # Register model
@@ -23,3 +32,5 @@ registered_model = ml_client.models.create_or_update(model)
 print("Model registered successfully")
 print(registered_model.name)
 print(registered_model.version)
+print("Model tags:")
+print(registered_model.tags)
