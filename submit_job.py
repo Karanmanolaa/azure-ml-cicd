@@ -28,7 +28,8 @@ job = command(
 
     command="""
     python validate_data.py &&
-    python train.py
+    python train.py &&
+    python register_model.py
     """,
 
     environment=custom_env,

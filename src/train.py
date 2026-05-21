@@ -3,6 +3,7 @@ from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import joblib
 
 # Start MLflow run
 mlflow.start_run()
@@ -53,6 +54,11 @@ if accuracy < minimum_accuracy:
     raise ValueError(
         f"Model accuracy below threshold: {accuracy}"
     )
+
+# Save trained model
+joblib.dump(model, "model.joblib")
+
+print("Model saved successfully")
 
 # End MLflow run
 mlflow.end_run()
