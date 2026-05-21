@@ -2,6 +2,8 @@ from azure.ai.ml import MLClient
 from azure.ai.ml.entities import ManagedOnlineDeployment
 from azure.identity import DefaultAzureCredential
 
+from azure.ai.ml.entities import ManagedOnlineEndpoint
+
 # Connect to Azure ML workspace
 ml_client = MLClient(
     DefaultAzureCredential(),
@@ -40,3 +42,20 @@ print("Deployment completed successfully")
 print("Latest model fetched successfully")
 print(latest_model.name)
 print(latest_model.version)
+
+
+# Configure traffic routing
+endpoint = ManagedOnlineEndpoint(
+    name="iris-ep-v10",
+    traffic={
+        "blue-deployment": 90,
+        "green-deployment": 10
+    }
+)
+
+# Update endpoint traffic
+ml_client.online_endpoints.begin_create_or_update(
+    endpoint
+).result()
+
+print("Traffic routing updated successfully")
