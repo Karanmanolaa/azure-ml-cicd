@@ -29,9 +29,13 @@ deployment = ManagedOnlineDeployment(
     instance_count=1
 )
 
+print("Starting deployment update...")
 # Create or update deployment
 ml_client.online_deployments.begin_create_or_update(
     deployment
 ).result()
 
 print("Deployment completed successfully")
+print("Latest model fetched successfully")
+print(latest_model.name)
+print(latest_model.version)
