@@ -1,6 +1,8 @@
 from azure.ai.ml import MLClient
 from azure.ai.ml import command
+from azure.ai.ml.entities import Environment
 from azure.identity import DefaultAzureCredential
+
 
 # Connect to Azure ML workspace
 ml_client = MLClient(
@@ -10,30 +12,34 @@ ml_client = MLClient(
     workspace_name="karan-ml-workspace"
 )
 
-# Create command job
-job = job = command(
 
+# Create custom environment
+custom_env = Environment(
+    name="train-env",
+    description="Training environment",
+    conda_file="./environments/train-env.yml",
+    image="mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04"
+)
+
+
+# Create command job
+job = command(
     code="./src",
 
-    command= """
+    command="""
     python validate_data.py &&
     python train.py
     """,
 
-    environment={
-
-        "conda_file": "./environments/train-env.yml",
-
-        "image": "mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04"
-
-    },
+    environment=custom_env,
 
     compute="cpu-cluster"
-
 )
+
 
 # Submit job
 returned_job = ml_client.jobs.create_or_update(job)
+
 
 # Print job name
 print("Job submitted successfully")
