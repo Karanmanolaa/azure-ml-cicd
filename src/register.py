@@ -16,6 +16,10 @@ github_sha = os.getenv("GITHUB_SHA", "local-run")
 
 github_run_id = os.getenv("GITHUB_RUN_ID", "manual-run")
 
+# Initial model stage
+
+model_stage = "staging"
+approval_status = "pending"
 
 # Create model object
 model = Model(
@@ -31,7 +35,9 @@ model = Model(
         "training type" : "automated",
         "pipeline" : "github-actions",
         "git_commit": github_sha,
-        "github_run": github_run_id
+        "github_run": github_run_id,
+        "stage" : model_stage,
+        "approval_status" : approval_status
     }
 )
 
