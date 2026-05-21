@@ -1,4 +1,4 @@
-name: Test Azure Login
+name: Trigger Azure ML Job
 
 on:
   push:
@@ -10,7 +10,7 @@ env:
   RESOURCE_GROUP: ml-project-rg
 
 jobs:
-  test-login:
+  train-job:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,11 +32,5 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Verify Azure Login
-        run: az account show
-
-      - name: Verify Azure ML SDK
-        run: pip show azure-ai-ml
-
-      - name: Print Workspace Name
-        run: echo $WORKSPACE_NAME
+      - name: Submit Azure ML Job
+        run: python submit_job.py
