@@ -3,3 +3,4 @@ azure-identity
 mlflow
 pandas
 scikit-learn
+azure-core
